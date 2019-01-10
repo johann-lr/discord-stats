@@ -1,0 +1,23 @@
+{
+  "name": "discord-stats",
+  "version": "1.0.0",
+  "description": "discord client to collect stats",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johann-lr/discord-stats.git"
+  },
+  "author": "Johann L.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johann-lr/discord-stats/issues"
+  },
+  "homepage": "https://github.com/johann-lr/discord-stats#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "enmap": "^4.6.5"
+  }
+}

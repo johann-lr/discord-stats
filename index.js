@@ -1,10 +1,12 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
+const config = require("./config.json");
+
 const Enmap = require("enmap");
 client.stats = new Enmap({ name: "stats", autoFetch: true, fetchAll: false });
 
-client.on("ready", () => console.log("Bot ready");
+client.on("ready", () => console.log("Bot ready"));
 
 client.on("presenceUpdate", async (oldMember, newMember) => {
   //otherwise enmap database is full of boring bot infos
@@ -106,4 +108,6 @@ client.on("presenceUpdate", async (oldMember, newMember) => {
       }
     }
   }
-};
+});
+
+client.login(config.token);

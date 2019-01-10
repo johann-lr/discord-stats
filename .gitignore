@@ -1,0 +1,8 @@
+.env
+# thanks macOS
+.DS_Store
+# IDEs
+.vscode/
+.idea/
+# install modules yourself using npm i
+node_modules/
