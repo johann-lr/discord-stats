@@ -1,16 +1,32 @@
+/**
+ * @author Johann Laur
+ * @description Discord bot that collects data about user's usage by using the presenceUpdate Event
+ * @module index.js Main file
+ * @version 1.0
+ */
+
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
+// run module that handles messages (client#messageEvent)
+require("./messageHandler")(client);
 const config = require("./config.json");
 
 const Enmap = require("enmap");
 client.stats = new Enmap({ name: "stats", autoFetch: true, fetchAll: false });
 
-client.on("ready", () => console.log("Bot ready"));
+client.on("ready", () => {
+  console.log("Bot ready");
+  // array of users (id) who agreed
+  if (!client.stats.has("usersToLog")) client.stats.set("usersToLog", []);
+  client.user.setActivity(`${config.prefix}agree`, { type: "LISTENING" });
+});
 
 client.on("presenceUpdate", async (oldMember, newMember) => {
   //otherwise enmap database is full of boring bot infos
   if (newMember.user.bot || oldMember.user.bot) return;
+  // return if user is not in array of users that agreed
+  if (client.stats.get("usersToLog").indexOf(oldMember.id) == -1) return;
   let id = await newMember.user.id;
 
   //saves game and start-timestamp to enmap if a user starts playing and did not play anything before

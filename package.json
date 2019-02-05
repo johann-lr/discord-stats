@@ -8,15 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/johann-lr/discord-stats.git"
+    "url": "https://github.com/johann-lr/discord-stats.git"
   },
-  "author": "Johann L.",
+  "author": "Johann Laur",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/johann-lr/discord-stats/issues"
   },
   "homepage": "https://github.com/johann-lr/discord-stats#readme",
   "dependencies": {
+    "better-sqlite-pool": "github:eslachance/better-sqlite-pool",
     "discord.js": "^11.4.2",
     "enmap": "^4.6.5"
   }
