@@ -6,3 +6,9 @@
 .idea/
 # install modules yourself using npm i
 node_modules/
+
+# dev config
+dev_config.json
+
+# databases with userdata (auto created by enmap)
+data/
