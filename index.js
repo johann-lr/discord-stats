@@ -126,4 +126,35 @@ client.on("presenceUpdate", async (oldMember, newMember) => {
   }
 });
 
+client.on("voiceStateUpdate", (oldMember, newMember) => {
+  // same structure as in presenceUpdate
+  if (newMember.user.bot || oldMember.user.bot) return;
+  if (client.stats.get("usersToLog").indexOf(oldMember.id) == -1) return;
+
+  let id = await newMember.user.id;
+
+  if (!oldMember.voiceChannel && newMember.voiceChannel) {
+    client.stats.set(`${id}-startedVC`, {
+      time: new Date().getTime(),
+      channel: newMember.voiceChannel.id
+    });
+    //if (!client.stats.has(`${newMember.voiceChannelID}-VC`))
+    //client.stats.set(`${newMember.voiceChannelID}-VC`, 0);
+    console.log(newMember.user.tag, "joined channel");
+    console.log(newMember.voiceChannel.members.map(m => m.id));
+  }
+
+  if (oldMember.voiceChannel && !newMember.voiceChannel) {
+    if (!client.stats.has(`${id}-startedVC`)) return;
+    console.log(`${newMember.user.tag} left channel`);
+    let now = new Date();
+    let startedVC = await client.stats.get(`${id}-startedVC`).time;
+    if (!client.stats.has(`${id}-voiceTime`)) client.stats.set(`${id}-voiceTime`, 0);
+    client.stats.math(`${id}-voiceTime`, "+", (now.getTime() - startedVC) / 1000);
+    //if (oldMember.voiceChannel.members.array().length < 1)
+    //client.stats.math(`${oldMember.voiceChannel.id}-VCT`, "+", time);
+    client.stats.delete(`${id}-startedVC`);
+  }
+})
+
 client.login(config.token);
