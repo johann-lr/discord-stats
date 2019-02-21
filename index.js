@@ -10,10 +10,14 @@ const client = new Discord.Client();
 
 // run module that handles messages (client#messageEvent)
 require("./messageHandler")(client);
-const config = require("./config.json");
+const config = require("./dev_config.json");
 
-const Enmap = require("enmap");
-client.stats = new Enmap({ name: "stats", autoFetch: true, fetchAll: false });
+// database setup
+const Database = require("better-sqlite3");
+const datab = new Database("./database/data.db", { verbose: console.log });
+const creationStatements = [
+  "CREATE TABLE usage_stats (UserID INTEGER NOT NULL, onlineTime FLOAT, idleTime FLOAT, wentOn DATE, wentIDLE date)"
+];
 
 client.on("ready", () => {
   console.log("Bot ready");
@@ -27,7 +31,7 @@ client.on("presenceUpdate", async (oldMember, newMember) => {
   if (newMember.user.bot || oldMember.user.bot) return;
   // return if user is not in array of users that agreed
   if (client.stats.get("usersToLog").indexOf(oldMember.id) == -1) return;
-  let id = await newMember.user.id;
+  let id = newMember.user.id;
 
   //saves game and start-timestamp to enmap if a user starts playing and did not play anything before
   if (!oldMember.presence.game && newMember.presence.game) {
@@ -131,7 +135,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
   if (newMember.user.bot || oldMember.user.bot) return;
   if (client.stats.get("usersToLog").indexOf(oldMember.id) == -1) return;
 
-  let id = await newMember.user.id;
+  let id = newMember.user.id;
 
   if (!oldMember.voiceChannel && newMember.voiceChannel) {
     client.stats.set(`${id}-startedVC`, {
@@ -148,13 +152,13 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
     if (!client.stats.has(`${id}-startedVC`)) return;
     console.log(`${newMember.user.tag} left channel`);
     let now = new Date();
-    let startedVC = await client.stats.get(`${id}-startedVC`).time;
+    let startedVC = client.stats.get(`${id}-startedVC`).time;
     if (!client.stats.has(`${id}-voiceTime`)) client.stats.set(`${id}-voiceTime`, 0);
     client.stats.math(`${id}-voiceTime`, "+", (now.getTime() - startedVC) / 1000);
     //if (oldMember.voiceChannel.members.array().length < 1)
     //client.stats.math(`${oldMember.voiceChannel.id}-VCT`, "+", time);
     client.stats.delete(`${id}-startedVC`);
   }
-})
+});
 
 client.login(config.token);
