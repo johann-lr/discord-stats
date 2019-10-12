@@ -1,6 +1,6 @@
 # Discord-Stats (Presence data collector)
 
-Discord bot (written in **discord.js**) that collects data about the user's activity (like online time and game activity) by using the presenceUpdate event. The data is saved into an [Enmap](https://github.com/eslachance/enmap)
+Discord bot (written with **discord.js**) that collects data about user's activity (like online time and game activity) by using the presenceUpdate event. The data is saved into an [Enmap](https://github.com/eslachance/enmap)
 
 ### Required npm packages
 
@@ -24,16 +24,16 @@ The great thing is: By using Enmap storing is really easy and you can access eve
 | {UserID}-{GameName}-times | Array of objects for each activity: {start: Timestamp, end: Timestamp}  |
 | {UserID}-wentOn           | Created if user went online, saved Timestamp (temporary)                |
 | {UserID}-wentIdle         | '' (but regarding idle status) (temporary)                              |
-| {UserID}-onlineTime       | Complete online time by a user                                          |
-| {UserID}-idleTime         | Complete idle time by a user                                            |
+| {UserID}-onlineTime       | Summed up online time of a user                                         |
+| {UserID}-idleTime         | Summed up idle time of a user                                           |
 | usersToLog                | Array of user ids whose data will be collected                          |
 
-- Hint: "Do not disturb" is calculated as online (Please open issue or open branch with pr if you care about this)
+- Hint: "Do not disturb" status is seen as online (Please open issue or open branch with pr if you care about this)
 
 ## Bot-commands in order to be TOS and privavy friendly
 
-| Command           | Description                                                                                       |
-| ----------------- | ------------------------------------------------------------------------------------------------- |
-| {prefix}collector | Can be run as server admin, creates info message, each check mark reaction equals to an agreement |
-| {prefix}agree     | User is simply pushed into "usersToLog"                                                           |
-| {prefix}revoke    | Revoke agreement, id is removed from "usersToLog"                                                 |
+| Command           | Description                                                                                        |
+| ----------------- | -------------------------------------------------------------------------------------------------- |
+| {prefix}collector | Can be run as server admin; creates info message; each check mark filled is seen as giving consent |
+| {prefix}agree     | Consent to being logged; id is added to "usersToLog"                                               |
+| {prefix}revoke    | Revoke consent; id is removed from "usersToLog"                                                    |
