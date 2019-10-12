@@ -32,8 +32,8 @@ The great thing is: By using Enmap storing is really easy and you can access eve
 
 ## Bot-commands in order to be TOS and privavy friendly
 
-| Command           | Description                                                                                       |
-| ----------------- | ------------------------------------------------------------------------------------------------- |
-| {prefix}collector | Can be run as server admin, creates info message, each check mark filled is seen as giving consent|
-| {prefix}agree     | Consent to being logged; id is added to "usersToLog"                                              |
-| {prefix}revoke    | Revoke consent; id is removed from "usersToLog"                                                   |
+| Command           | Description                                                                                        |
+| ----------------- | -------------------------------------------------------------------------------------------------- |
+| {prefix}collector | Can be run as server admin; creates info message; each check mark filled is seen as giving consent |
+| {prefix}agree     | Consent to being logged; id is added to "usersToLog"                                               |
+| {prefix}revoke    | Revoke consent; id is removed from "usersToLog"                                                    |
