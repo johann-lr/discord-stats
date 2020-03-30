@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/johann-lr/discord-stats#readme",
   "dependencies": {
-    "better-sqlite-pool": "github:eslachance/better-sqlite-pool",
-    "discord.js": "^11.4.2",
-    "enmap": "^4.6.5"
+    "better-sqlite3": "^6.0.1",
+    "discord.js": "^12.1.1",
+    "enmap": "^5.2.4"
   }
 }
